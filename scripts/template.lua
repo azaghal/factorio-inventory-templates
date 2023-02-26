@@ -8,6 +8,52 @@ local utils = require("scripts.utils")
 local template = {}
 
 
+--- Checks if passed-in list of blueprint entities constitutes a valid inventory template that can be imported.
+--
+-- @param inventory LuaInventory Inventory to check the template against.
+-- @param blueprint_entities {BlueprintEntity} List of blueprint entities to check.
+--
+-- @return bool true if passed-in entities constitute valid personal logistics template, false otherwise.
+--
+function template.is_valid_template(inventory, blueprint_entities)
+
+    -- Number of slots must match-up.
+    if #inventory ~= table_size(blueprint_entities) then
+        return false
+    end
+
+    for _, entity in pairs(blueprint_entities) do
+
+        -- Only constant combinators are allowed in the blueprint.
+        if entity.name ~= "constant-combinator" then
+            return false
+        end
+
+        -- Extract list of filters on constant combinator.
+        local filters = entity.control_behavior and entity.control_behavior.filters and entity.control_behavior.filters or {}
+
+        -- Maximum two filters can be set.
+        if table_size(filters) > 2 then
+            return false
+        end
+
+        -- Make sure that only two first filters are present, and that they have the correct content type.
+        for _, filter in pairs(filters) do
+            if filter.index > 2 then
+                return false
+            elseif filter.index == 1 and filter.signal.type ~= "item" then
+                return false
+            elseif filter.index == 2 and (filter.signal.type ~= "virtual" or filter.signal.name ~= "signal-red") then
+                return false
+            end
+        end
+
+    end
+
+    return true
+end
+
+
 --- Converts inventory configuration into list of (blueprint entity) constant combinators.
 --
 -- Each slot of inventory configuration is represented by a single constant combinator in the resulting list. Filtered
@@ -81,6 +127,67 @@ function template.inventory_configuration_to_constant_combinators(inventory)
     end
 
     return combinators
+end
+
+
+--- Converts list of (blueprint entity) constant combinators into inventory configuration.
+--
+-- Function assumes that the passed-in list of constant combinators has been validated already (see
+-- template.is_valid_template).
+--
+-- @param combinators {BlueprintEntity} List of constant combinators representing inventory configuration.
+--
+-- @return { filters = { uint = string }, limit = uint|nil } Filters map slot index to item name, limit can be nil of no limit is set.
+--
+function template.constant_combinators_to_inventory_configuration(combinators)
+
+    local filters = {}
+
+    -- Use as initial value to represent that no inventory limit is set.
+    local limit = 4294967296
+
+    -- Sort the passed-in combinators by coordinates. This should help get a somewhat sane ordering even if player has
+    -- been messing with the constant combinator layout. Slots are read from top to bottom and from left to right.
+    local sort_by_coordinate = function(elem1, elem2)
+        if elem1.position.y < elem2.position.y then
+            return true
+        elseif elem1.position.y == elem2.position.y and elem1.position.x < elem2.position.x then
+            return true
+        end
+
+        return false
+    end
+    table.sort(combinators, sort_by_coordinate)
+
+    for slot_index, combinator in pairs(combinators) do
+
+        if combinator.control_behavior and combinator.control_behavior.filters then
+
+            local combinator_filters = combinator.control_behavior.filters
+
+            local item_name =
+                combinator_filters[1] and combinator_filters[1].index == 1 and combinator_filters[1].signal.name or
+                combinator_filters[2] and combinator_filters[2].index == 1 and combinator_filters[2].signal.name
+
+            local limit_candidate =
+                combinator_filters[1] and combinator_filters[1].index == 2 and slot_index or
+                combinator_filters[2] and combinator_filters[2].index == 2 and slot_index or
+                4294967296
+
+            filters[slot_index] = item_name
+            limit = limit_candidate < limit and limit_candidate or limit
+
+        end
+
+    end
+
+    limit = limit ~= 4294967296 and limit or nil
+
+    return {
+        filters = filters,
+        limit = limit,
+    }
+
 end
 
 

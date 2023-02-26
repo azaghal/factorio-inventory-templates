@@ -5,6 +5,7 @@
 local gui = require("scripts.gui")
 local utils = require("scripts.utils")
 local inventory = require("scripts.inventory")
+local template = require("scripts.template")
 
 
 local main = {}
@@ -73,16 +74,21 @@ function main.update_button_visibility(player)
     -- Retrieve list of blueprint entities.
     local blueprint_entities = player.get_blueprint_entities() or {}
 
+    -- Fetch main inventory corresponding to entity that has its GUI currently open.
+    local entity = utils.get_opened_gui_entity(player)
+    local inventory = entity and utils.get_entity_inventory(entity) or nil
+
     -- Check if player is holding a blank blueprint.
     if table_size(blueprint_entities) == 0 and player.is_cursor_blueprint() and player.cursor_stack.valid_for_read then
-
-        -- Fetch main inventory corresponding to (eventual) entity that has its GUI currently open.
-        local entity = utils.get_opened_gui_entity(player)
-        local inventory = entity and utils.get_entity_inventory(entity) or nil
 
         if inventory and inventory.supports_filters() then
             gui_mode = "export"
         end
+
+    -- Check if player is holding a valid blueprint template.
+    elseif inventory and inventory.supports_filters() and template.is_valid_template(inventory, blueprint_entities) then
+
+        gui_mode = "import"
 
     end
 
@@ -108,10 +114,27 @@ function main.export(player)
 end
 
 
+--- Imports inventory template from a held blueprint.
+--
+-- @param player LuaPlayer Player that has requested the import.
+--
+function main.import(player)
+
+    local blueprint_entities = player.get_blueprint_entities()
+    local inventory_configuration = template.constant_combinators_to_inventory_configuration(blueprint_entities)
+    local entity = utils.get_opened_gui_entity(player)
+    local entity_inventory = utils.get_entity_inventory(entity)
+
+    inventory.import(entity_inventory, inventory_configuration)
+
+end
+
+
 --- Registers GUI handlers for the module.
 --
 function main.register_gui_handlers()
     gui.register_handler("it_export_button", main.export)
+    gui.register_handler("it_import_button", main.import)
 end
 
 

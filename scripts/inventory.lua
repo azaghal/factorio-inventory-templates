@@ -29,4 +29,26 @@ function inventory.export_into_blueprint(inventory, blueprint)
 end
 
 
+--- Import inventory configuration.
+--
+-- @param inventory_ LuaInventory Inventory for which to import the configuration.
+-- @param inventory_configuration { filters = { uint = string }, limit = uint|nil } Filters to apply to slots and eventual inventory limit to set.
+--
+function inventory.import(inventory_, inventory_configuration)
+
+    -- Set-up the filters.
+    for slot_index = 1, #inventory_ do
+        inventory_.set_filter(slot_index, inventory_configuration.filters[slot_index])
+    end
+
+    -- Set the limit if supported and part of inventory configuration.
+    if inventory_.supports_bar() and inventory_configuration.limit then
+        inventory_.set_bar(inventory_configuration.limit)
+    elseif inventory_.supports_bar() then
+        inventory_.set_bar()
+    end
+
+end
+
+
 return inventory

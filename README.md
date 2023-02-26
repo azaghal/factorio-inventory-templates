@@ -14,7 +14,12 @@ Features
 
 ### Create templates
 
-Hold an empty blueprint while any inventory with filtering support is opened, and an export button will be shown at bottom-left of the window. Clicking on the button while holding an empty blueprint will read information about currently configured inventory filters, and export them to blueprint in the form of constant combinators (see below section on format). The export button is visible _only_ when an empty, non-library blueprint is held.
+Hold an empty blueprint while any inventory with filtering support is opened, and an export button will be shown at bottom-left of the window. Clicking on the button while holding an empty blueprint will read information about currently configured inventory filters, and export them to blueprint in the form of constant combinators (see below section on format). The export button is visible _only_ when an empty, non-library blueprint is held. In addition to filters, the exported template will also include information about inventory limits (if supported/set).
+
+
+### Set filters from templates
+
+Hold an inventory template (blueprint) when a filter-capable inventory is open, and an import button will be shown at bottom-left of the window. Click on the button with the held blueprint to set the filters and the inventory limit (if supported). Button is shown _only_ when a valid and compatible (matching slot count) inventory template blueprint is held.
 
 
 ### Template format
@@ -54,3 +59,4 @@ All code, documentation, and assets implemented as part of this mod are released
 -   [assets/backpack.svg](https://game-icons.net/1x1/delapouite/delivery-drone.html), by Delapouite, under [CC BY 3.0](http://creativecommons.org/licenses/by/3.0/), used in creation of modpack thumbnail.
 -   [build.sh (factorio_development.sh)](https://code.majic.rs/majic-scripts/), by Branko Majic, under [GPLv3](https://www.gnu.org/licenses/gpl-3.0.html).
 -   `graphics/icons/export-template-button.png`, which is a derivative based on Factorio game assets as provided by *Wube Software Ltd*. For details, see [Factorio Terms of Service](https://www.factorio.com/terms-of-service).
+-   `graphics/icons/import-template-button.png`, which is a derivative based on Factorio game assets as provided by *Wube Software Ltd*. For details, see [Factorio Terms of Service](https://www.factorio.com/terms-of-service).
