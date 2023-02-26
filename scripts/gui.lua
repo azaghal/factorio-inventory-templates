@@ -20,7 +20,9 @@ function gui.initialise(player)
     global.player_data[player.index].windows = {}
 
     local window_anchors = {
+        car = defines.relative_gui_type.car_gui,
         character = defines.relative_gui_type.controller_gui,
+        container = defines.relative_gui_type.container_gui,
         spidertron = defines.relative_gui_type.spider_vehicle_gui,
     }
 
@@ -41,6 +43,16 @@ function gui.initialise(player)
             type = "frame",
             name = "it_panel",
             style = "shortcut_bar_inner_panel",
+        }
+
+        local export_button = panel.add{
+            type = "sprite-button",
+            name = "it_export_button",
+            style = "shortcut_bar_button_blue",
+            visible = false,
+            sprite = "it-export-template-button",
+            tooltip = {"gui.it-export"},
+            tags = { mode = "export" }
         }
 
         global.player_data[player.index].windows[window_name] = window
