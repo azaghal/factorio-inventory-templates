@@ -52,4 +52,23 @@ function utils.get_entity_inventory(entity)
 end
 
 
+--- Checks if item stack is a blank deconstruction planner.
+--
+-- @param item_stack LuaItemStack Item stack to check.
+--
+-- @return bool true if passed-in item stack is blank deconstruction planner, false otherwise.
+--
+function utils.is_blank_deconstruction_planner(item_stack)
+    if item_stack.valid_for_read and
+        item_stack.is_deconstruction_item and
+        table_size(item_stack.entity_filters) == 0 and
+        table_size(item_stack.tile_filters) == 0 then
+
+        return true
+    end
+
+    return false
+end
+
+
 return utils

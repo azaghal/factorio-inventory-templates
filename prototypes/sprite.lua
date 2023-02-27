@@ -18,6 +18,14 @@ data:extend{
         size = 32,
         mipmap_count = 2,
         flags = {"icon"}
+    },
+    {
+        type = "sprite",
+        name = "it-clear-filters-button",
+        filename = "__inventory-templates__/graphics/icons/clear-filters-button.png",
+        size = 32,
+        mipmap_count = 2,
+        flags = {"icon"}
     }
 }
 

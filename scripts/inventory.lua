@@ -51,4 +51,16 @@ function inventory.import(inventory_, inventory_configuration)
 end
 
 
+--- Clears all inventory filters.
+--
+-- @param inventory_ LuaInventory Inventory for which to clear the filters.
+--
+function inventory.clear(inventory_)
+
+    for slot_index = 1, #inventory_ do
+        inventory_.set_filter(slot_index, nil)
+    end
+end
+
+
 return inventory

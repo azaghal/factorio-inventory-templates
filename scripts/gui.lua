@@ -65,6 +65,16 @@ function gui.initialise(player)
             tags = { mode = "import" }
         }
 
+        local clear_button = panel.add{
+            type = "sprite-button",
+            name = "it_clear_button",
+            style = "shortcut_bar_button_red",
+            visible = false,
+            sprite = "it-clear-filters-button",
+            tooltip = {"gui.it-clear"},
+            tags = { mode = "modify" }
+        }
+
         global.player_data[player.index].windows[window_name] = window
     end
 end

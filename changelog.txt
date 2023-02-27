@@ -4,4 +4,5 @@ Date: 9999-99-99
   Changes:
   Features:
     - Import and export inventory filter configuration using blueprint templates.
+    - Clear all inventory filters with a single button click.
   Bugfixes:

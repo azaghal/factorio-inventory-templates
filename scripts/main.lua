@@ -90,6 +90,11 @@ function main.update_button_visibility(player)
 
         gui_mode = "import"
 
+    -- Check if player is holding a blank deconstruction planner.
+    elseif utils.is_blank_deconstruction_planner(player.cursor_stack) then
+
+        gui_mode = "modify"
+
     end
 
     gui.set_mode(player, gui_mode)
@@ -130,11 +135,26 @@ function main.import(player)
 end
 
 
+--- Clears all inventory filters.
+--
+-- @param player LuaPlayer Player that has requested the clearing.
+--
+function main.clear(player)
+
+    local entity = utils.get_opened_gui_entity(player)
+    local entity_inventory = utils.get_entity_inventory(entity)
+
+    inventory.clear(entity_inventory)
+
+end
+
+
 --- Registers GUI handlers for the module.
 --
 function main.register_gui_handlers()
     gui.register_handler("it_export_button", main.export)
     gui.register_handler("it_import_button", main.import)
+    gui.register_handler("it_clear_button", main.clear)
 end
 
 
