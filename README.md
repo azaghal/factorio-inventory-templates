@@ -21,7 +21,7 @@ Hold an empty blueprint while any inventory with filtering support is opened, an
 
 ### Set filters from templates
 
-Hold an inventory template (blueprint) when a filter-capable inventory is open, and an import button will be shown at bottom-left of the window. Click on the button with the held blueprint to set the filters and the inventory limit (if supported). Button is shown _only_ when a valid and compatible (matching slot count) inventory template blueprint is held.
+Hold an inventory template (blueprint) when a filter-capable inventory is open, and an import button will be shown at bottom-left of the window. Click on the button with the held blueprint to set the filters and the inventory limit (if supported). Button is shown _only_ when a valid inventory template blueprint is held, and when the inventory size is at least as big as the template itself. For example, it is possible to import (vanilla game) car template into tank, but not vice-versa.
 
 
 ### Clear all filters
@@ -33,7 +33,7 @@ Hold an empty deconstruction planner when a filter-capable inventory is open, an
 
 Valid inventory blueprints contain only constant combinators, with signals specifying what item filter is applied to a slot, and eventually where the chest limits have been set (red bar).
 
-Each constant combinator represents a single slot in the inventory filter configuration. Constant combinators are read from top to bottom and from left to right. Normally they will be laid-out in aligned rows, with each row consisting out of 10 combinators (mapping directly to the layout in inventory window).
+Each constant combinator represents a single slot in the inventory filter configuration. Constant combinators are read from top to bottom and from left to right. Normally they will be laid-out in aligned rows, with each row consisting out of (up to) 10 combinators (mapping directly to the layout in inventory window).
 
 First filter slot of a combinator is used to specify the inventory slot filter. Second filter slot of a combinator can optionally be set to red signal, indicating that the inventory slot belongs to chest limits area. Chest limits are applied only on inventories that support them.
 

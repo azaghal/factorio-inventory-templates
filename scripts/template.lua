@@ -17,8 +17,13 @@ local template = {}
 --
 function template.is_valid_template(inventory, blueprint_entities)
 
-    -- Number of slots must match-up.
-    if #inventory ~= table_size(blueprint_entities) then
+    -- At least one entity must be present in the blueprint.
+    if table_size(blueprint_entities) == 0 then
+        return false
+    end
+
+    -- Inventory must have at least as many slots as passed-in template.
+    if #inventory < table_size(blueprint_entities) then
         return false
     end
 
