@@ -71,4 +71,18 @@ function utils.is_blank_deconstruction_planner(item_stack)
 end
 
 
+--- Checks if the players is holding a blank editable blueprint.
+--
+-- @param player LuaPlayer Player for which to perform the check.
+--
+-- @return bool true if player is holding a blank blueprint, false otherwise.
+
+function utils.is_player_holding_blank_editable_blueprint(player)
+
+    local blueprint_entities = player.get_blueprint_entities() or {}
+
+    return table_size(blueprint_entities) == 0 and player.is_cursor_blueprint() and player.cursor_stack.valid_for_read
+end
+
+
 return utils

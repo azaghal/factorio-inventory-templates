@@ -79,11 +79,8 @@ function main.update_button_visibility(player)
     local inventory = entity and utils.get_entity_inventory(entity) or nil
 
     -- Check if player is holding a blank blueprint.
-    if table_size(blueprint_entities) == 0 and player.is_cursor_blueprint() and player.cursor_stack.valid_for_read then
-
-        if inventory and inventory.supports_filters() then
-            gui_mode = "export"
-        end
+    if utils.is_player_holding_blank_editable_blueprint(player) and inventory and inventory.supports_filters() then
+        gui_mode = "export"
 
     -- Check if player is holding a valid blueprint template.
     elseif inventory and inventory.supports_filters() and template.is_valid_template(inventory, blueprint_entities) then
