@@ -1,8 +1,6 @@
 ---------------------------------------------------------------------------------------------------
-Version: 999.999.999
-Date: 9999-99-99
-  Changes:
+Version: 1.0.0
+Date: 2023-02-28
   Features:
     - Import and export inventory filter configuration using blueprint templates.
     - Clear all inventory filters with a single button click.
-  Bugfixes:
