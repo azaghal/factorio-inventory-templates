@@ -13,7 +13,10 @@
    sodipodi:docname="thumbnail.svg"
    width="576"
    height="576"
-   inkscape:version="0.92.1 r15371">
+   inkscape:version="0.92.1 r15371"
+   inkscape:export-filename="/home/branko/projects/factorio/inventory-templates/thumbnail.png"
+   inkscape:export-xdpi="24"
+   inkscape:export-ydpi="24">
   <metadata
      id="metadata14">
     <rdf:RDF>
@@ -41,9 +44,9 @@
      inkscape:window-height="1027"
      id="namedview10"
      showgrid="false"
-     inkscape:zoom="0.4609375"
-     inkscape:cx="164.05613"
-     inkscape:cy="565.96974"
+     inkscape:zoom="0.65186406"
+     inkscape:cx="309.36979"
+     inkscape:cy="223.54558"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
@@ -58,7 +61,7 @@
   <g
      class=""
      id="g6"
-     transform="matrix(0.73266944,0,0,0.73266944,100.43662,100.43705)">
+     transform="matrix(0.74418605,0,0,0.74418605,97.488371,97.488803)">
     <path
        style="fill:#ffffff;fill-opacity:1"
        inkscape:connector-curvature="0"
@@ -66,7 +69,7 @@
        id="path4" />
   </g>
   <g
-     transform="matrix(8.75,0,0,8.75,8,8)"
+     transform="matrix(8,0,0,8,32,32)"
      id="g7191"
      style="fill:#ffffff">
     <path
