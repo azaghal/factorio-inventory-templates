@@ -23,6 +23,8 @@ Hold an empty blueprint while any inventory with filtering support is opened, an
 
 Hold an inventory template (blueprint) when a filter-capable inventory is open, and an import button will be shown at bottom-left of the window. Click on the button with the held blueprint to set the filters and the inventory limit (if supported). Button is shown _only_ when a valid inventory template blueprint is held, and when the inventory size is at least as big as the template itself. For example, it is possible to import (vanilla game) car template into tank, but not vice-versa.
 
+If an item stack occupies a non-matching filter slot after the template import, it be moved into (compatible) empty inventory slot, or, should that fail, spilled over the ground. The logic behind this is fairly simply, and it does not take care of merging matching item stacks.
+
 
 ### Clear all filters
 

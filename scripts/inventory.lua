@@ -36,9 +36,20 @@ end
 --
 function inventory.import(inventory_, inventory_configuration)
 
+    -- Keep track of item stacks that do not match-up with underlying filter.
+    local filter_incompatible_item_stacks = {}
+
     -- Set-up the filters.
     for slot_index = 1, #inventory_ do
-        inventory_.set_filter(slot_index, inventory_configuration.filters[slot_index])
+
+        local filter_item_name = inventory_configuration.filters[slot_index]
+        local slot_stack = inventory_[slot_index]
+
+        inventory_.set_filter(slot_index, filter_item_name)
+
+        if slot_stack.valid_for_read and filter_item_name and slot_stack.name ~= filter_item_name then
+            table.insert(filter_incompatible_item_stacks, slot_stack)
+        end
     end
 
     -- Set the limit if supported and part of inventory configuration.
@@ -46,6 +57,25 @@ function inventory.import(inventory_, inventory_configuration)
         inventory_.set_bar(inventory_configuration.limit)
     elseif inventory_.supports_bar() then
         inventory_.set_bar()
+    end
+
+    -- Move non-matching item stacks out of the way.
+    for _, item_stack in pairs(filter_incompatible_item_stacks) do
+
+        -- Try to locate a compatible empty slot first.
+        local empty_slot_item_stack = inventory_.find_empty_stack(item_stack.name)
+
+        -- Move the item stack into empty slot.
+        if empty_slot_item_stack then
+            empty_slot_item_stack.swap_stack(item_stack)
+
+        -- Otherwise just spill the items out of the container.
+        elseif inventory_.entity_owner then
+            local entity = inventory_.entity_owner
+            entity.surface.spill_item_stack(entity.position, item_stack, false, nil, false)
+            item_stack.clear()
+        end
+
     end
 
 end
