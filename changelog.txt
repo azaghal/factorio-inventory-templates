@@ -4,6 +4,7 @@ Date: 9999-99-99
   Changes:
   Features:
   Bugfixes:
+    - Fixed infinity containers with filter capability not being properly detected by the mod.
 ---------------------------------------------------------------------------------------------------
 Version: 1.1.0
 Date: 2023-03-04

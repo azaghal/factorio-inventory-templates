@@ -21,6 +21,7 @@ function utils.get_opened_gui_entity(player)
         (player.opened.type == "car" or
          player.opened.type == "cargo-wagon" or
          player.opened.type == "container" or
+         player.opened.type == "infinity-container" or
          player.opened.type == "linked-container" or
          player.opened.type == "logistic-container" or
          player.opened.type == "spider-vehicle") then
@@ -47,6 +48,7 @@ function utils.get_entity_inventory(entity)
         entity.type == "car" and defines.inventory.car_trunk or
         entity.type == "cargo-wagon" and defines.inventory.item_main or
         entity.type == "container" and defines.inventory.item_main or
+        entity.type == "infinity-container" and defines.inventory.item_main or
         entity.type == "linked-container" and defines.inventory.item_main or
         entity.type == "logistic-container" and defines.inventory.item_main or
         nil
