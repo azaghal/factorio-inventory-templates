@@ -17,7 +17,9 @@ function utils.get_opened_gui_entity(player)
         entity = player.character
     elseif player.opened_gui_type == defines.gui_type.entity and
         (player.opened.type == "spider-vehicle" or player.opened.type == "car"
-         or player.opened.type == "cargo-wagon" or player.opened.type == "container") then
+         or player.opened.type == "cargo-wagon" or player.opened.type == "container"
+		 or player.opened.type == "logistic-container" or player.opened.type == "infinity-container"
+		 or player.opened.type == "linked-container") then
         entity = player.opened
     else
         entity = nil
@@ -37,13 +39,16 @@ end
 --
 function utils.get_entity_inventory(entity)
 
-    local inventory_type =
-        entity.type == "character" and defines.inventory.character_main or
-        entity.type == "spider-vehicle" and defines.inventory.spider_trunk or
-        entity.type == "car" and defines.inventory.car_trunk or
-        entity.type == "cargo-wagon" and defines.inventory.item_main or
-        entity.type == "container" and defines.inventory.item_main or
-        nil
+    local inventory_type = 
+		entity.type == "character" and defines.inventory.character_main or
+		entity.type == "spider-vehicle" and defines.inventory.spider_trunk or
+		entity.type == "car" and defines.inventory.car_trunk or
+		entity.type == "cargo-wagon" and defines.inventory.item_main or
+		entity.type == "container" and defines.inventory.item_main or
+		entity.type == "logistic-container" and defines.inventory.item_main or
+		entity.type == "infinity-container" and defines.inventory.item_main or
+		entity.type == "linked-container" and defines.inventory.item_main or
+		nil
 
     local inventory = inventory_type and entity.get_inventory(inventory_type) or nil
 
