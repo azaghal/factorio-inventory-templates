@@ -16,7 +16,6 @@ local inventory = {}
 --
 function inventory.export_into_blueprint(inventory, blueprint)
 
-    local inventory = utils.get_entity_inventory(entity)
     local combinators = template.inventory_configuration_to_constant_combinators(inventory)
 
     -- Set the blueprint content and change default icons.

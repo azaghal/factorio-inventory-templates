@@ -13,14 +13,14 @@ local utils = {}
 --
 function utils.get_opened_gui_entity(player)
 
+    local entity = nil
+
     if player.opened_gui_type == defines.gui_type.controller then
         entity = player.character
     elseif player.opened_gui_type == defines.gui_type.entity and
         (player.opened.type == "spider-vehicle" or player.opened.type == "car"
          or player.opened.type == "cargo-wagon" or player.opened.type == "container") then
         entity = player.opened
-    else
-        entity = nil
     end
 
     return entity
