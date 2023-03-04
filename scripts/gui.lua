@@ -24,6 +24,7 @@ function gui.initialise(player)
         character = defines.relative_gui_type.controller_gui,
         container = defines.relative_gui_type.container_gui,
         spidertron = defines.relative_gui_type.spider_vehicle_gui,
+        linkedcontainer = defines.relative_gui_type.linked_container_gui,
     }
 
     for window_name, gui_type in pairs(window_anchors) do
