@@ -3,6 +3,7 @@ Version: 999.999.999
 Date: 9999-99-99
   Changes:
   Features:
+    - Added support for linked containers and logistic containers.
   Bugfixes:
 ---------------------------------------------------------------------------------------------------
 Version: 1.0.1

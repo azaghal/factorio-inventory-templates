@@ -18,8 +18,12 @@ function utils.get_opened_gui_entity(player)
     if player.opened_gui_type == defines.gui_type.controller then
         entity = player.character
     elseif player.opened_gui_type == defines.gui_type.entity and
-        (player.opened.type == "spider-vehicle" or player.opened.type == "car"
-         or player.opened.type == "cargo-wagon" or player.opened.type == "container") then
+        (player.opened.type == "car" or
+         player.opened.type == "cargo-wagon" or
+         player.opened.type == "container" or
+         player.opened.type == "linked-container" or
+         player.opened.type == "logistic-container" or
+         player.opened.type == "spider-vehicle") then
         entity = player.opened
     end
 
@@ -43,6 +47,8 @@ function utils.get_entity_inventory(entity)
         entity.type == "car" and defines.inventory.car_trunk or
         entity.type == "cargo-wagon" and defines.inventory.item_main or
         entity.type == "container" and defines.inventory.item_main or
+        entity.type == "linked-container" and defines.inventory.item_main or
+        entity.type == "logistic-container" and defines.inventory.item_main or
         nil
 
     local inventory = inventory_type and entity.get_inventory(inventory_type) or nil
