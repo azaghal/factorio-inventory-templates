@@ -43,7 +43,7 @@ First filter slot of a combinator is used to specify the inventory slot filter. 
 Known issues
 ------------
 
-There are no known issues at this time.
+-   Button tooltips have extra spacing on the top. The extra spacing is added on purpose in order to make the tooltip text readable when holding a blueprint with a name. Otherwise the blueprint name is drawn on top of the tooltip, rendering it unreadable due to overlap. Unfortunately, there is nothing that can be done for this on the mod side - see [this post](https://forums.factorio.com/viewtopic.php?f=7&t=105698) for more details.
 
 
 Contributions
