@@ -20,7 +20,7 @@ function inventory.export_into_blueprint(inventory, blueprint)
 
     -- Set the blueprint content and change default icons.
     blueprint.set_blueprint_entities(combinators)
-    blueprint.blueprint_icons = {
+    blueprint.preview_icons = {
         { index = 1, signal = {type = "virtual", name = "signal-I"}},
         { index = 2, signal = {type = "virtual", name = "signal-T"}},
     }

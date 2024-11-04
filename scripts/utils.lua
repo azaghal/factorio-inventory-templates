@@ -87,9 +87,26 @@ end
 
 function utils.is_player_holding_blank_editable_blueprint(player)
 
-    local blueprint_entities = player.get_blueprint_entities() or {}
+    local blueprint_entities = utils.get_held_blueprint_entities(player) or {}
 
     return table_size(blueprint_entities) == 0 and player.is_cursor_blueprint() and player.cursor_stack.valid_for_read
+end
+
+
+--- Returns blueprint entities from item stack held by player (if any).
+--
+-- Convenience function that takes into account both the cursor stack and record.
+--
+-- @param player LuaPlayer Player to grab the blueprint entities from.
+--
+-- @return {BlueprintEntity} List of blueprint entities from the blueprint held by player.
+function utils.get_held_blueprint_entities(player)
+    local blueprint_entities =
+           player.cursor_stack and player.cursor_stack.valid_for_read and player.cursor_stack.is_blueprint and player.cursor_stack.get_blueprint_entities()
+        or player.cursor_record and player.cursor_record.valid and player.cursor_record.get_blueprint_entities()
+        or {}
+
+    return blueprint_entities
 end
 
 

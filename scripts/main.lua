@@ -14,7 +14,7 @@ local main = {}
 --- Initialises global mod data.
 --
 function main.initialise_data()
-    global.player_data = global.player_data or {}
+    storage.player_data = storage.player_data or {}
 
     for index, player in pairs(game.players) do
         main.initialise_player_data(player)
@@ -27,7 +27,7 @@ end
 -- @param player LuaPlayer Player for which to initialise the data.
 --
 function main.initialise_player_data(player)
-    global.player_data[player.index] = global.player_data[player.index] or {}
+    storage.player_data[player.index] = storage.player_data[player.index] or {}
 
     gui.initialise(player)
 end
@@ -58,7 +58,7 @@ end
 function main.destroy_player_data(player)
     gui.destroy_player_data(player)
 
-    global.player_data[player.index] = nil
+    storage.player_data[player.index] = nil
 end
 
 
@@ -72,7 +72,7 @@ function main.update_button_visibility(player)
     local gui_mode = "hidden"
 
     -- Retrieve list of blueprint entities.
-    local blueprint_entities = player.get_blueprint_entities() or {}
+    local blueprint_entities = utils.get_held_blueprint_entities(player)
 
     -- Fetch main inventory corresponding to entity that has its GUI currently open.
     local entity = utils.get_opened_gui_entity(player)
@@ -122,7 +122,7 @@ end
 --
 function main.import(player)
 
-    local blueprint_entities = player.get_blueprint_entities()
+    local blueprint_entities = utils.get_held_blueprint_entities(player)
     local inventory_configuration = template.constant_combinators_to_inventory_configuration(blueprint_entities)
     local entity = utils.get_opened_gui_entity(player)
     local entity_inventory = utils.get_entity_inventory(entity)

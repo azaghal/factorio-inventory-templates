@@ -10,14 +10,14 @@ local gui = {}
 -- @param player LuaPlayer Player for which to initialise the GUI.
 --
 function gui.initialise(player)
-    if global.player_data[player.index].windows then
+    if storage.player_data[player.index].windows then
         return
     end
 
     -- Although it would be possible to maintain a single window, and simply update the anchors, this would result in
     -- entity window getting nudged upwards every time the buttons window gets reanchored to them, which would be
     -- somewhat annoying visually. Maintain "duplicate" button windows instead for smoother GUI experience.
-    global.player_data[player.index].windows = {}
+    storage.player_data[player.index].windows = {}
 
     local window_anchors = {
         car = defines.relative_gui_type.car_gui,
@@ -36,7 +36,7 @@ function gui.initialise(player)
                 gui = gui_type,
                 position = defines.relative_gui_position.bottom
             },
-            style = "quick_bar_window_frame",
+            style = "slot_window_frame",
             visible = false,
         }
 
@@ -76,7 +76,7 @@ function gui.initialise(player)
             tags = { mode = "modify" }
         }
 
-        global.player_data[player.index].windows[window_name] = window
+        storage.player_data[player.index].windows[window_name] = window
     end
 end
 
@@ -86,15 +86,15 @@ end
 -- @param player LuaPlayer Player for which to destroy the GUI.
 --
 function gui.destroy_player_data(player)
-    if not global.player_data[player.index].windows then
+    if not storage.player_data[player.index].windows then
         return
     end
 
-    for _, window in pairs(global.player_data[player.index].windows) do
+    for _, window in pairs(storage.player_data[player.index].windows) do
         window.destroy()
     end
 
-    global.player_data[player.index].windows = nil
+    storage.player_data[player.index].windows = nil
 end
 
 
@@ -104,7 +104,7 @@ end
 -- @param mode string Mode to set. One of: "hidden", "export", "modify".
 --
 function gui.set_mode(player, mode)
-    for _, window in pairs(global.player_data[player.index].windows) do
+    for _, window in pairs(storage.player_data[player.index].windows) do
 
         if mode == "hidden" then
 

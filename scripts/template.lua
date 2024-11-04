@@ -85,7 +85,7 @@ function template.inventory_configuration_to_constant_combinators(inventory)
                 entity_number = i,
                 name = "constant-combinator",
                 position = {x = x, y = y},
-                control_behavior = {filters = {}}
+                control_behavior = {sections = {sections = {{filters = {}, index = 1}}}}
             }
         )
     end
@@ -98,35 +98,37 @@ function template.inventory_configuration_to_constant_combinators(inventory)
     local bar_filter = {
         index = 2,
         count = 0,
-        signal = {
-            name = "signal-red",
-            type = "virtual"
-        }
+        name = "signal-red",
+        type = "virtual",
+        -- Irrelevant for our purposes, but required by game engine.
+        comparator = "=",
+        quality = "normal"
     }
 
     -- Populate combinators with inventory slot filters.
     for slot_index = 1, #inventory do
 
         local combinator = combinators[slot_index]
-        local item_name = inventory.get_filter(slot_index)
+        local item = inventory.get_filter(slot_index)
 
-        if item_name then
+        if item then
 
             -- Minimum quantities are kept in the first slot of the first row.
             local filter = {
                 index = 1,
                 count = 0,
-                signal = {
-                    name = item_name,
-                    type = "item"
-                }
+                name = item.name,
+                type = "item",
+                -- Irrelevant for our purposes, but required by game engine.
+                comparator = "=",
+                quality = "normal"
             }
-            table.insert(combinator.control_behavior.filters, filter)
+            table.insert(combinator.control_behavior.sections.sections[1].filters, filter)
 
         end
 
         if slot_index >= bar then
-            table.insert(combinator.control_behavior.filters, bar_filter)
+            table.insert(combinator.control_behavior.sections.sections[1].filters, bar_filter)
         end
 
     end
@@ -166,13 +168,13 @@ function template.constant_combinators_to_inventory_configuration(combinators)
 
     for slot_index, combinator in pairs(combinators) do
 
-        if combinator.control_behavior and combinator.control_behavior.filters then
+        if combinator.control_behavior.sections and combinator.control_behavior.sections.sections[1].filters then
 
-            local combinator_filters = combinator.control_behavior.filters
+            local combinator_filters = combinator.control_behavior.sections.sections[1].filters
 
             local item_name =
-                combinator_filters[1] and combinator_filters[1].index == 1 and combinator_filters[1].signal.name or
-                combinator_filters[2] and combinator_filters[2].index == 1 and combinator_filters[2].signal.name
+                combinator_filters[1] and combinator_filters[1].index == 1 and combinator_filters[1].name or
+                combinator_filters[2] and combinator_filters[2].index == 1 and combinator_filters[2].name
 
             local limit_candidate =
                 combinator_filters[1] and combinator_filters[1].index == 2 and slot_index or
