@@ -84,12 +84,10 @@ function main.update_button_visibility(player)
 
     -- Check if player is holding a valid blueprint template.
     elseif inventory and inventory.supports_filters() and template.is_valid_template(inventory, blueprint_entities) then
-
         gui_mode = "import"
 
     -- Check if player is holding a blank deconstruction planner.
     elseif utils.is_blank_deconstruction_planner(player.cursor_stack) then
-
         gui_mode = "modify"
 
     end
