@@ -45,6 +45,7 @@ Known issues
 
 -   Button tooltips have extra spacing on the top. The extra spacing is added on purpose in order to make the tooltip text readable when holding a blueprint with a name. Otherwise the blueprint name is drawn on top of the tooltip, rendering it unreadable due to overlap. Unfortunately, there is nothing that can be done for this on the mod side - see [this post](https://forums.factorio.com/viewtopic.php?f=7&t=105698) for more details.
 -   Inventory templates cannot be applied against ghost entities. This is limitation of the game modding API - the ghost entity "inventories" are not accessible for any kind of (direct) modification. For more details please see [the following forum post](https://forums.factorio.com/viewtopic.php?t=103378).
+-   Blueprint books cannot be used directly to neither export nor import inventory templates. This is limitation of the game modding API, and a functionality regression compared to mod versions for Factorio 1.1. For more details please see [the following forum post](https://forums.factorio.com/viewtopic.php?f=25&t=118398&p=633652).
 
 
 Contributions

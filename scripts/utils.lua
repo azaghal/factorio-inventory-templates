@@ -89,7 +89,7 @@ function utils.is_player_holding_blank_editable_blueprint(player)
 
     local blueprint_entities = utils.get_held_blueprint_entities(player) or {}
 
-    return table_size(blueprint_entities) == 0 and player.is_cursor_blueprint() and player.cursor_stack.valid_for_read
+    return table_size(blueprint_entities) == 0 and player.cursor_stack.valid_for_read and player.cursor_stack.is_blueprint
 end
 
 
@@ -103,7 +103,7 @@ end
 function utils.get_held_blueprint_entities(player)
     local blueprint_entities =
            player.cursor_stack and player.cursor_stack.valid_for_read and player.cursor_stack.is_blueprint and player.cursor_stack.get_blueprint_entities()
-        or player.cursor_record and player.cursor_record.valid and player.cursor_record.get_blueprint_entities()
+        or player.cursor_record and player.cursor_record.valid and player.cursor_record.type == "blueprint" and player.cursor_record.get_blueprint_entities()
         or {}
 
     return blueprint_entities
