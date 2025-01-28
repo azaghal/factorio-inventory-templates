@@ -1,8 +1,6 @@
 ---------------------------------------------------------------------------------------------------
-Version: 999.999.999
-Date: 9999-99-99
-  Changes:
-  Features:
+Version: 2.0.2
+Date: 2025-01-28
   Bugfixes:
     - Fix crash when holding blueprint that has not been synced by the player (is in preview mode).
 ---------------------------------------------------------------------------------------------------
