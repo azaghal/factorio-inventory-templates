@@ -102,8 +102,10 @@ end
 -- @return {BlueprintEntity} List of blueprint entities from the blueprint held by player.
 function utils.get_held_blueprint_entities(player)
     local blueprint_entities =
-           player.cursor_stack and player.cursor_stack.valid_for_read and player.cursor_stack.is_blueprint and player.cursor_stack.get_blueprint_entities()
-        or player.cursor_record and player.cursor_record.valid and player.cursor_record.type == "blueprint" and player.cursor_record.get_blueprint_entities()
+           player.cursor_stack and player.cursor_stack.valid_for_read
+           and player.cursor_stack.is_blueprint and player.cursor_stack.get_blueprint_entities()
+        or player.cursor_record and player.cursor_record.valid
+           and player.cursor_record.type == "blueprint" and not player.cursor_record.is_blueprint_preview and player.cursor_record.get_blueprint_entities()
         or {}
 
     return blueprint_entities
